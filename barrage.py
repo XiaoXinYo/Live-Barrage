@@ -11,7 +11,7 @@ async def receive(websocket):
         data = json.loads(data)
         for data_count in data:
             single_data = data[data_count]
-            print(f"{data_count}| {single_data.get('type')} | {single_data.get('prefix')} | {single_data.get('username')}: {single_data.get('content')}")
+            print(f"{data_count} | {single_data.get('type')} | {single_data.get('prefix')} | {single_data.get('username')}: {single_data.get('content')}")
 
 async def run(websocket):
     while True:
