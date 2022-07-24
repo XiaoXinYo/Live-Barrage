@@ -9,4 +9,4 @@
 2. 包: asyncio,websockets,json.
 ### Java(Java文件夹)
 1. 环境：gradle
-2. 包: java-websocket，slf4j
+2. 包: java-websocket,slf4j,fastjson
