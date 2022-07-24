@@ -7,8 +7,6 @@ ws.onclose = function() {
     console.log('断开连接');
 };
 
-
-
 var barrage_id = [];
 setInterval(function() {
     var webcast_chatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
