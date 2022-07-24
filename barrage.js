@@ -69,7 +69,7 @@ setInterval(function() {
         var is_admin = false;
         var user_grade_level = '';
         var fan_club_leve = '';
-        var gift_url = '';
+        var gift_image_url = '';
         var img_src = original.match(/src="([^"]*)"/g);
         if (img_src != null) {
             for (var img_src_count = 0; img_src_count < img_src.length; img_src_count++) {
@@ -85,7 +85,7 @@ setInterval(function() {
                 } else {
                     if (content.indexOf('送出了') != -1) {
                         type = 'gift';
-                        gift_url = single_img_src;
+                        gift_image_url = single_img_src;
                     }
                 }
             }
@@ -99,7 +99,7 @@ setInterval(function() {
             'prefix': prefix,
             'username': username,
             'content': content,
-            'gift_url': gift_url
+            'gift_image_url': gift_image_url
         };
         barrage[id] = single_barrage;
     }
