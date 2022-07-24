@@ -3,7 +3,7 @@
 
 import asyncio
 import websockets
-import json 
+import json
 
 async def receive(websocket):
     while True:

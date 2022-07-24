@@ -3,6 +3,8 @@
 ## WebSocket
 1. 通过WebSokcet向后端传送弹幕.
 2. 在barrage.js第一行中修改地址和端口.
-## Barrage.py(示例)
+## 示例(example文件夹)
+### Python(barrage.py)
 1. 环境: Python3.
 2. 包: asyncio,websockets,json.
+### Java(Java文件夹)
