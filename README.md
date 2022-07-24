@@ -7,6 +7,6 @@
 ### Python(barrage.py)
 1. 环境: Python3.
 2. 包: asyncio,websockets,json.
-### Java(Java文件夹)
-1. 环境: gradle
-2. 包: java-websocket,slf4j,fastjson
+### Java(java文件夹)
+1. 环境: gradle.
+2. 包: java-websocket,slf4j,fastjson.
