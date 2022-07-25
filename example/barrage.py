@@ -6,6 +6,7 @@ import websockets
 import json
 
 async def receive(websocket):
+    print('连接成功')
     while True:
         data = await websocket.recv()
         data = json.loads(data)
