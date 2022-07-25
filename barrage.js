@@ -1,4 +1,7 @@
-var ws = new WebSocket("ws://127.0.0.1:5000");
+var ADDRESS = 'ws://127.0.0.1:5000';
+var TIME = 1000;
+
+var ws = new WebSocket(ADDRESS);
 ws.onopen = function() {
     console.log('连接成功');
 };
@@ -120,4 +123,4 @@ setInterval(function() {
         console.log(barrage);
         ws.send(barrage_json);
     }
-}, 1000);
+}, TIME);

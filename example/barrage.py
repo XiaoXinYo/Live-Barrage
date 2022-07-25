@@ -19,7 +19,7 @@ async def run(websocket):
         try:
             await receive(websocket)
         except websockets.ConnectionClosed:
-            print("断开连接")
+            print('断开连接')
             break
        
 if __name__ == '__main__':
