@@ -1,8 +1,8 @@
 ## 介绍
-通过浏览器运行JavaScript脚本获取抖音直播弹幕.
-## WebSocket
-1. 通过WebSokcet向后端传送弹幕.
-2. 在barrage.js第一行中修改地址和端口.
+通过浏览器运行JavaScript脚本获取抖音直播弹幕,通过WebSokcet向后端传送弹幕.
+## 配置
+1. WebSocket连接地址在第1行修改.
+2. 监测间隔在第2行修改.
 ## 示例(example文件夹)
 ### Python(barrage.py)
 1. 环境: Python3.
