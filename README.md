@@ -1,5 +1,5 @@
 ## 介绍
-通过浏览器运行JavaScript脚本获取抖音直播弹幕,通过WebSokcet向后端传送弹幕.
+通过浏览器运行JavaScript脚本获取抖音直播弹幕,使用WebSokcet向后端传送弹幕.
 ## 配置
 1. WebSocket连接地址在第1行修改.
 2. 监测间隔在第2行修改.
