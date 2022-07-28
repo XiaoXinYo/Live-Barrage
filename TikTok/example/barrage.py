@@ -5,7 +5,7 @@ import asyncio
 import websockets
 import json
 
-async def receive(websocket):
+async def handle(websocket):
     print('连接成功')
     while True:
         data = await websocket.recv()
@@ -17,7 +17,7 @@ async def receive(websocket):
 async def run(websocket):
     while True:
         try:
-            await receive(websocket)
+            await handle(websocket)
         except websockets.ConnectionClosed:
             print('断开连接')
             break

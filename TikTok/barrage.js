@@ -104,14 +104,10 @@ setInterval(function() {
             'content': content,
             'gift_image_url': gift_image_url
         };
-        barrage[id] = single_barrage;
-    }
-
-    for (barrage_count in barrage) {
-        if (barrage_id.indexOf(barrage_count) != -1) {
-            delete(barrage[barrage_count]);
-        } else {
-            barrage_id.push(barrage_count);
+        
+        if (barrage_id.indexOf(id) != -1) {
+            barrage[id] = single_barrage;
+            barrage_id.push(id);
             if (barrage_id.length > 300) {
                 barrage_id.splice(0, 100)
             }
