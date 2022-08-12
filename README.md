@@ -1,6 +1,9 @@
 ## 哔哩哔哩
 ### 介绍
 通过请求哔哩哔哩官方API获取抖音直播弹幕,使用WebSokcet向其他端传送弹幕.
+### 需求
+1. 环境: Python3.
+2. 包: asyncio,websockets,requests,json.
 ### 配置
 监测间隔(秒)在第38行修改.
 ### 方法
