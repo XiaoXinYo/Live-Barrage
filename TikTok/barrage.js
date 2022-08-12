@@ -105,11 +105,11 @@ setInterval(function() {
             'gift_image_url': gift_image_url
         };
         
-        if (barrage_id.indexOf(id) != -1) {
+        if (barrage_id.indexOf(id) == -1) {
             barrage[id] = single_barrage;
             barrage_id.push(id);
             if (barrage_id.length > 300) {
-                barrage_id.splice(0, 100)
+                barrage_id.splice(0, 100);
             }
         }
     }
