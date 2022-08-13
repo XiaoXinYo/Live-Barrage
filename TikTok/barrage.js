@@ -14,7 +14,7 @@ var barrage_id = [];
 setInterval(function() {
     var webcast_chatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
     var barrage_element = webcast_chatroom.getElementsByClassName('webcast-chatroom___item');
-    var barrage = {};
+    var barrage = [];
     
     for (var barrage_element_count = 0; barrage_element_count < barrage_element.length; barrage_element_count++) {
         var single_barrage_element = barrage_element[barrage_element_count];
@@ -106,7 +106,7 @@ setInterval(function() {
         };
         
         if (barrage_id.indexOf(id) == -1) {
-            barrage[id] = single_barrage;
+            barrage.push(single_barrage);
             barrage_id.push(id);
             if (barrage_id.length > 300) {
                 barrage_id.splice(0, 100);
