@@ -5,7 +5,7 @@
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests,json.
 ### 配置
-监测间隔(秒)在第61行修改.
+监测间隔(秒)在第78行修改.
 ### 方法
 客户端连接WebSocket后发送直播网址或房间号.
 ## 抖音
@@ -14,6 +14,8 @@
 ### 配置
 1. WebSocket连接地址在第1行修改.
 2. 监测间隔(毫秒)在第2行修改.
+### 方法
+先运行服务端,再在浏览器运行脚本.
 ### 示例(Tiktok/example/)
 #### Python(barrage.py)
 1. 环境: Python3.
@@ -27,6 +29,6 @@
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests,json.
 ### 配置
-监测间隔(秒)在第52行修改.
+监测间隔(秒)在第69行修改.
 ### 方法
 客户端连接WebSocket后发送直播网址.
