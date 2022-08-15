@@ -44,11 +44,8 @@ class Kwai_Live_Barrage:
             for data_count in data:
                 author = data_count.get('author')
                 single_brrage = {
-                    'user' : {
-                        'id': author.get('userId'),
-                        'name': author.get('userName'),
-                        'head_url': author.get('headurl')
-                    },
+                    'user_id': author.get('userId'),
+                    'nickname': author.get('userName'),
                     'content': data_count.get('content'),
                     'timestmap': data_count.get('time')
                 }

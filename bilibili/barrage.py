@@ -50,10 +50,8 @@ class Bilibili_Live_Barrage:
                     content = f'[{data_count.get("text")}]'
                 check_info = data_count.get('check_info')
                 single_barrage = {
-                    'user': {
-                        'id': data_count.get('uid'),
-                        'name': data_count.get('nickname')
-                    },
+                    'user_id': data_count.get('uid'),
+                    'nickname': data_count.get('nickname'),
                     'content': content,
                     'timestamp': check_info.get('ts')
                 }

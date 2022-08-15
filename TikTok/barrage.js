@@ -15,25 +15,24 @@ setInterval(function() {
     var webcast_chatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
     var barrage_element = webcast_chatroom.getElementsByClassName('webcast-chatroom___item');
     var barrage = [];
-    
     for (var barrage_element_count = 0; barrage_element_count < barrage_element.length; barrage_element_count++) {
         var single_barrage_element = barrage_element[barrage_element_count];
 
-        var id = barrage_element[barrage_element_count].getAttribute('data-id');
-        var type = 'message';
+        var id = single_barrage_element.getAttribute('data-id');
+        var type = '';
         
         var original = single_barrage_element.innerHTML;
         
-        var prefix = '';
-        original_prefix = original.match(/">(\S*)<\/span><\/div><\/span>/g);
-        if (original_prefix != null) {
-            prefix = original_prefix[0];
-            prefix = prefix.replace(/<[^>]+>/g, '');
-            prefix = prefix.trimStart().trimEnd();
-            prefix = prefix.replace('">', '');
+        var fan_club_name = '';
+        original_fan_club_name = original.match(/">(\S*)<\/span><\/div><\/span>/g);
+        if (original_fan_club_name != null) {
+            fan_club_name = original_fan_club_name[0];
+            fan_club_name = fan_club_name.replace(/<[^>]+>/g, '');
+            fan_club_name = fan_club_name.trimStart().trimEnd();
+            fan_club_name = fan_club_name.replace('">', '');
         }
         
-        var username = '';
+        var nickname = '';
         var content = '';
         original_text = original.replace(/">(\S*)<\/span><\/div><\/span>/g, '');
         original_text = original_text.replace(/<[^>]+>/g, '');
@@ -43,16 +42,17 @@ setInterval(function() {
                 type = 'welcome';
                 original_text = original_text.split(' ');
             } else {
+                type = 'message';
                 original_text = original_text.replace('&nbsp;×&nbsp;', '*');
                 original_text = original_text.split('：');
             }
-            username = original_text[0];
-            username = username.trimStart().trimEnd();
+            nickname = original_text[0];
+            nickname = nickname.trimStart().trimEnd();
             original_text.shift();
             content = original_text.join('');
         } else {
             type = 'system';
-            username = '系统消息';
+            nickname = '系统';
             content = original_text;
         }
         
@@ -70,7 +70,7 @@ setInterval(function() {
         content += emoticon;
         
         var is_admin = false;
-        var user_grade_level = '';
+        var user_level = '';
         var fan_club_leve = '';
         var gift_image_url = '';
         var img_src = original.match(/src="([^"]*)"/g);
@@ -80,8 +80,8 @@ setInterval(function() {
                 if (single_img_src.indexOf('admin') != -1) {
                     is_admin = true;
                 } else if (single_img_src.indexOf('user_grade_level') != -1) {
-                    user_grade_level = single_img_src.match(/_[1-9]\d*.png/g)[0];
-                    user_grade_level = user_grade_level.replace('_', '').replace('.png', '')
+                    user_level = single_img_src.match(/_[1-9]\d*.png/g)[0];
+                    user_level = user_level.replace('_', '').replace('.png', '')
                 } else if (single_img_src.indexOf('fansclub') != -1) {
                     fan_club_leve = single_img_src.match(/_[1-9]\d*.png/g)[0];
                     fan_club_leve = fan_club_leve.replace('_', '').replace('.png', '')
@@ -96,11 +96,11 @@ setInterval(function() {
         
         var single_barrage = {
             'type': type,
-            'is_admin': is_admin,
-            'user_grade_level': user_grade_level,
+            'nickname': nickname,
+            'user_level': user_level,
+            'fan_club_name': fan_club_name,
             'fan_club_leve': fan_club_leve,
-            'prefix': prefix,
-            'username': username,
+            'is_admin': is_admin,
             'content': content,
             'gift_image_url': gift_image_url
         };
