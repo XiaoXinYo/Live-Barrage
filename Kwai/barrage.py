@@ -6,6 +6,10 @@ import websockets
 import requests
 import json
 
+ADDRESS = '0.0.0.0'
+PORT = 5000
+TIME = 3000
+
 def get_middle_text(text, text_left='', text_right=''):
     try:
         if not text_left:
@@ -63,7 +67,7 @@ async def handle(websocket):
                 await websocket.send('直播流ID错误')
                 break
             await websocket.send(json.dumps(barrage_data, ensure_ascii=False))
-        await asyncio.sleep(3)
+        await asyncio.sleep(TIME / 1000)
 
 async def run(websocket):
     while True:
@@ -74,5 +78,5 @@ async def run(websocket):
             break
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(websockets.serve(run, '127.0.0.1', 5000))
+    asyncio.get_event_loop().run_until_complete(websockets.serve(run, ADDRESS, PORT))
     asyncio.get_event_loop().run_forever()

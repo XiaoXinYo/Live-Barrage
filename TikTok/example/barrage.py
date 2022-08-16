@@ -5,13 +5,16 @@ import asyncio
 import websockets
 import json
 
+ADDRESS = '127.0.0.1'
+PORT = 5000
+
 async def handle(websocket):
     print('连接成功')
     while True:
         data = await websocket.recv()
         data = json.loads(data)
         for data_count in data:
-            print('{:10s} | {:10s} | {:10s}'.format(data_count.get('type'), data_count.get('username'), data_count.get('content')))
+            print("{:10s} | {:10s} | {:10s}".format(data_count.get('type'), data_count.get('nickname'), data_count.get('content')))
 
 async def run(websocket):
     while True:
@@ -22,5 +25,5 @@ async def run(websocket):
             break
        
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(websockets.serve(run, '127.0.0.1', 5000))
+    asyncio.get_event_loop().run_until_complete(websockets.serve(run, ADDRESS, PORT))
     asyncio.get_event_loop().run_forever()
