@@ -5,7 +5,7 @@ import asyncio
 import websockets
 import json
 
-ADDRESS = '127.0.0.1'
+HOST = '127.0.0.1'
 PORT = 5000
 
 async def handle(websocket):
@@ -25,5 +25,5 @@ async def run(websocket):
             break
        
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(websockets.serve(run, ADDRESS, PORT))
+    asyncio.get_event_loop().run_until_complete(websockets.serve(run, HOST, PORT))
     asyncio.get_event_loop().run_forever()

@@ -6,77 +6,78 @@ import websockets
 import requests
 import json
 
-ADDRESS = '0.0.0.0'
+HOST = '0.0.0.0'
 PORT = 5000
 TIME = 3000
 
-def get_middle_text(text, text_left='', text_right=''):
+def getMiddleText(text, textLeft='', textRight=''):
     try:
-        if not text_left:
-            return text.split(text_right)[1]
-        elif not text_right:
-            return text.split(text_left)[1]
-        data = text.split(text_left)[1].split(text_right)[0]
+        if not textLeft:
+            return text.split(textRight)[1]
+        elif not textRight:
+            return text.split(textLeft)[1]
+        data = text.split(textLeft)[1].split(textRight)[0]
     except Exception:
         data = ''
     return data
 
-class Kwai_Live_Barrage:
+class KwaiLiveBarrage:
     def __init__(self, url):
         '''
         url:直播网址
         '''
         self.url = url
-        self._get_live_stream_id()
+        self._getLiveStreamId()
     
-    def _get_live_stream_id(self):
+    def _getLiveStreamId(self):
         header = {}
         header['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
         data = requests.get(self.url, headers=header).text
-        self.live_stream_id = get_middle_text(data, '"liveStreamId":"' , '","caption')
+        self.liveStreamId = getMiddleText(data, '"liveStreamId":"' , '","caption')
 
     def get(self):
-        data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.live_stream_id}').text
+        data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
         try:
             data = json.loads(data)
             data = json.loads(data)
         except Exception:
             return '直播流ID错误'
         data = data.get('liveStreamFeeds')
-        barrage = []
+        
+        barrages = []
         if data:
-            for data_count in data:
-                author = data_count.get('author')
-                single_brrage = {
-                    'user_id': author.get('userId'),
+            for dataItem in data:
+                author = dataItem.get('author')
+                barrage = {
+                    'userId': author.get('userId'),
                     'nickname': author.get('userName'),
-                    'content': data_count.get('content'),
-                    'timestmap': data_count.get('time')
+                    'content': dataItem.get('content'),
+                    'timestmap': dataItem.get('time')
                 }
-                barrage.append(single_brrage)
-        return barrage
+                barrages.append(barrage)
+        return barrages
 
 async def handle(websocket):
-    print('连接成功')
     url = await websocket.recv()
-    barrage = Kwai_Live_Barrage(url)
+    barrage = KwaiLiveBarrage(url)
     while True:
-        barrage_data = barrage.get()
-        if barrage_data:
-            if barrage_data == '直播流ID错误':
+        barrages = barrage.get()
+        if barrages:
+            if barrages == '直播流ID错误':
                 await websocket.send('直播流ID错误')
                 break
-            await websocket.send(json.dumps(barrage_data, ensure_ascii=False))
+            await websocket.send(json.dumps(barrages, ensure_ascii=False))
         await asyncio.sleep(TIME / 1000)
 
 async def run(websocket):
     while True:
         try:
+            print('连接成功')
             await handle(websocket)
         except websockets.ConnectionClosed:
             print('断开连接')
             break
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(websockets.serve(run, ADDRESS, PORT))
+    asyncio.get_event_loop().run_until_complete(websockets.serve(run, HOST, PORT))
     asyncio.get_event_loop().run_forever()

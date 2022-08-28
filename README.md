@@ -3,7 +3,7 @@
 通过请求官方API获取直播弹幕,使用WebSokcet向其他端传送弹幕.
 ### 需求
 1. 环境: Python3.
-2. 包: asyncio,websockets,requests,json.
+2. 包: asyncio,websockets,requests.
 ### 配置
 1. WebSocket地址和端口分别在在第9行和第10行.
 2. 监听间隔(毫秒)在第11行.
@@ -12,7 +12,7 @@
 ### 响应参数
 名称|说明
 ---|---
-user_id|用户ID
+userId|用户ID
 nickname|昵称
 content|内容
 timestmap|时间戳
@@ -29,12 +29,7 @@ timestmap|时间戳
 ---|---
 type|类型
 nickname|昵称
-user_level|用户等级
-fan_club_name|粉丝团名称
-fan_club_level|粉丝团等级
-is_admin|是否为管理员
 content|内容
-gift_image_url|礼物图像网址
 ### 示例(Tiktok/example/)
 ## 斗鱼
 ### 介绍
@@ -46,10 +41,8 @@ gift_image_url|礼物图像网址
 先运行服务端,再运行脚本.
 名称|说明
 ---|---
-user_id|用户ID
+userId|用户ID
 nickname|昵称
-user_level|用户等级
-is_admin|是否为管理员
 content|内容
 ### 示例(参考抖音示例)
 ## 快手
@@ -65,7 +58,7 @@ content|内容
 ### 响应参数
 名称|说明
 ---|---
-user_id|用户ID
+userId|用户ID
 nickname|昵称
 content|内容
 timestmap|时间戳

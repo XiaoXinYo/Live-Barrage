@@ -1,7 +1,7 @@
-var ADDRESS = 'ws://127.0.0.1:5000';
-var TIME = 1000;
+let HOST = 'ws://127.0.0.1:5000';
+let TIME = 1000;
 
-var ws = new WebSocket(ADDRESS);
+let ws = new WebSocket(HOST);
 ws.onopen = function() {
     console.log('连接成功');
 };
@@ -10,113 +10,72 @@ ws.onclose = function() {
     console.log('断开连接');
 };
 
-var barrage_id = [];
+let barrageId = [];
 setInterval(function() {
-    var webcast_chatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
-    var barrage_element = webcast_chatroom.getElementsByClassName('webcast-chatroom___item');
-    var barrage = [];
-    for (var barrage_element_count = 0; barrage_element_count < barrage_element.length; barrage_element_count++) {
-        var single_barrage_element = barrage_element[barrage_element_count];
+    let webcastChatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
+    let barrageElements = webcastChatroom.getElementsByClassName('webcast-chatroom___item');
+    let barrages = [];
+    for (let barrageElementsIndex = 0; barrageElementsIndex < barrageElements.length; barrageElementsIndex++) {
+        let barrageElement = barrageElements[barrageElementsIndex];
 
-        var id = single_barrage_element.getAttribute('data-id');
-        var type = '';
+        let id = barrageElement.getAttribute('data-id');
+        let type = '';
         
-        var original = single_barrage_element.innerHTML;
+        let original = barrageElement.innerHTML;
         
-        var fan_club_name = '';
-        original_fan_club_name = original.match(/">(\S*)<\/span><\/div><\/span>/g);
-        if (original_fan_club_name != null) {
-            fan_club_name = original_fan_club_name[0];
-            fan_club_name = fan_club_name.replace(/<[^>]+>/g, '');
-            fan_club_name = fan_club_name.trimStart().trimEnd();
-            fan_club_name = fan_club_name.replace('">', '');
-        }
-        
-        var nickname = '';
-        var content = '';
-        original_text = original.replace(/">(\S*)<\/span><\/div><\/span>/g, '');
-        original_text = original_text.replace(/<[^>]+>/g, '');
-        original_text = original_text.trimStart().trimEnd();
-        if (original_text.indexOf('欢迎来到直播间') == -1) {
-            if (single_barrage_element.getAttribute('style') == 'background-color: transparent;') {
+        let nickname = '';
+        let content = '';
+        originalText = original.replace(/">(\S*)<\/span><\/div><\/span>/g, '');
+        originalText = originalText.replace(/<[^>]+>/g, '');
+        originalText = originalText.trimStart().trimEnd();
+        if (originalText.indexOf('欢迎来到直播间') == -1) {
+            if (barrageElement.getAttribute('style') == 'background-color: transparent;') {
                 type = 'welcome';
-                original_text = original_text.split(' ');
+                originalText = originalText.split(' ');
             } else {
+                if (originalText.indexOf('&nbsp;×&nbsp;') == -1) {
+                    break;
+                }
                 type = 'message';
-                original_text = original_text.replace('&nbsp;×&nbsp;', '*');
-                original_text = original_text.split('：');
+                originalText = originalText.split('：');
             }
-            nickname = original_text[0];
+            nickname = originalText[0];
             nickname = nickname.trimStart().trimEnd();
-            original_text.shift();
-            content = original_text.join('');
+            originalText.shift();
+            content = originalText.join('');
         } else {
             type = 'system';
             nickname = '系统';
-            content = original_text;
+            content = originalText;
         }
         
-        var original_emoticon = original.match(/alt="([^"]*)"/g);
-        var emoticon = '';
-        if (original_emoticon != null) {
-            for (var original_emoticon_count = 0;original_emoticon_count < original_emoticon.length; original_emoticon_count++) {
-                single_original_emoticon = original_emoticon[original_emoticon_count].replace('alt="', '').replace('"', '');
-                if (single_original_emoticon != '') {
-                    emoticon += single_original_emoticon;
-                }
+        let emoticons = original.match(/alt="([^"]*)"/g);
+        let emoticon = '';
+        if (emoticons != null) {
+            for (let emoticonsIndex = 0; emoticonsIndex < emoticons.length; emoticonsIndex++) {
+                emoticon += emoticons[emoticonsIndex].replace('alt="', '').replace('"', '');
             }
         }
-        
         content += emoticon;
         
-        var is_admin = false;
-        var user_level = '';
-        var fan_club_leve = '';
-        var gift_image_url = '';
-        var img_src = original.match(/src="([^"]*)"/g);
-        if (img_src != null) {
-            for (var img_src_count = 0; img_src_count < img_src.length; img_src_count++) {
-                single_img_src = img_src[img_src_count].replace('src="', '').replace('"', '');
-                if (single_img_src.indexOf('admin') != -1) {
-                    is_admin = true;
-                } else if (single_img_src.indexOf('user_grade_level') != -1) {
-                    user_level = single_img_src.match(/_[1-9]\d*.png/g)[0];
-                    user_level = user_level.replace('_', '').replace('.png', '')
-                } else if (single_img_src.indexOf('fansclub') != -1) {
-                    fan_club_leve = single_img_src.match(/_[1-9]\d*.png/g)[0];
-                    fan_club_leve = fan_club_leve.replace('_', '').replace('.png', '')
-                } else {
-                    if (content.indexOf('送出了') != -1) {
-                        type = 'gift';
-                        gift_image_url = single_img_src;
-                    }
-                }
-            }
-        }
-        
-        var single_barrage = {
+        let barrage = {
             'type': type,
             'nickname': nickname,
-            'user_level': user_level,
-            'fan_club_name': fan_club_name,
-            'fan_club_leve': fan_club_leve,
-            'is_admin': is_admin,
             'content': content,
-            'gift_image_url': gift_image_url
         };
         
-        if (barrage_id.indexOf(id) == -1) {
-            barrage.push(single_barrage);
-            barrage_id.push(id);
-            if (barrage_id.length > 300) {
-                barrage_id.splice(0, 100);
+        if (barrageId.indexOf(id) == -1) {
+            barrages.push(barrage);
+            barrageId.push(id);
+            if (barrageId.length > 300) {
+                barrageId.splice(0, 100);
             }
         }
     }
     
-    barrage_json = JSON.stringify(barrage);
-    if (barrage_json != '{}') {
-        console.log(barrage);
-        ws.send(barrage_json);
+    barragesJson = JSON.stringify(barrages);
+    if (barragesJson != '{}') {
+        console.log(barrages);
+        ws.send(barragesJson);
     }
 }, TIME);
