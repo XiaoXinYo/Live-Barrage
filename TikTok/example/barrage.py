@@ -14,7 +14,7 @@ async def handle(websocket):
         data = await websocket.recv()
         data = json.loads(data)
         for data_count in data:
-            print("{:10s} | {:10s} | {:10s}".format(data_count.get('type'), data_count.get('nickname'), data_count.get('content')))
+            print('{:10s} | {:10s} | {:10s}'.format(data_count.get('type'), data_count.get('nickname'), data_count.get('content')))
 
 async def run(websocket):
     while True:

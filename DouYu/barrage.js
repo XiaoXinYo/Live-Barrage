@@ -1,7 +1,8 @@
-let HOST = 'ws://127.0.0.1:5000';
-let TIME = 1000;
+const HOST = 'ws://127.0.0.1:5000';
+const TIME = 1000;
 
-let ws = new WebSocket(HOST);
+const ws = new WebSocket(HOST);
+
 ws.onopen = function() {
     console.log('连接成功');
 };
