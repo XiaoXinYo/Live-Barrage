@@ -5,7 +5,7 @@
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests.
 ### 配置
-1. WebSocket地址和端口分别在在第9行和第10行.
+1. WebSocket地址和端口分别在第9行和第10行.
 2. 监听间隔(毫秒)在第11行.
 ### 方法
 客户端连接WebSocket后发送直播网址或房间号.
@@ -51,7 +51,7 @@ content|内容
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests,json.
 ### 配置
-1. WebSocket地址和端口分别在在第9行和第10行.
+1. WebSocket地址和端口分别在第9行和第10行.
 2. 监听间隔(毫秒)在第11行.
 ### 方法
 客户端连接WebSocket后发送直播网址.
