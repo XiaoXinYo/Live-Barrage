@@ -32,9 +32,9 @@ class BilibiliLiveBarrage:
     
     def _getRoomId(self):
         if 'live.bilibili.com' in self.signature:
-            header = {}
-            header['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
-            liveData = requests.get(self.signature, headers=header).text
+            headers = {}
+            headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
+            liveData = requests.get(self.signature, headers=headers).text
             self.roomId = getMiddleText(liveData, 'defaultRoomId":"' , '","roomsNum"')
         else:
             self.roomId = self.signature
