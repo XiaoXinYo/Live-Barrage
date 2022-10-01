@@ -34,8 +34,9 @@ setInterval(function() {
                 type = 'welcome';
                 originalText = originalText.split(' ');
             } else {
-                if (originalText.indexOf('&nbsp;×&nbsp;') == -1) {
-                    break;
+				console.log(originalText);
+                if (originalText.indexOf('&nbsp;×&nbsp;') != -1) {
+                    continue;
                 }
                 type = 'message';
                 originalText = originalText.split('：');
