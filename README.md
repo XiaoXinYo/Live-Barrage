@@ -16,6 +16,7 @@ userId|用户ID
 nickname|昵称
 content|内容
 timestmap|时间戳
+### 示例(Bilibili/example/)
 ## 抖音
 ### 介绍
 通过浏览器运行JavaScript脚本获取直播弹幕,使用WebSokcet向其他端传送弹幕.
@@ -27,7 +28,7 @@ timestmap|时间戳
 ### 响应参数
 名称|说明
 ---|---
-type|类型
+type|类型,system代表系统,welcome代表欢迎,message代表消息
 nickname|昵称
 content|内容
 ### 示例(Tiktok/example/)
@@ -41,6 +42,7 @@ content|内容
 先运行服务端,再运行脚本.
 名称|说明
 ---|---
+type|类型,system代表系统,welcome代表欢迎,message代表消息
 userId|用户ID
 nickname|昵称
 content|内容
@@ -62,3 +64,4 @@ userId|用户ID
 nickname|昵称
 content|内容
 timestmap|时间戳
+### 示例(参考哔哩哔哩示例)

@@ -26,7 +26,7 @@ setInterval(function() {
         let userId = '';
         let nickname = '';
         let content = '';
-        if (barrageDiv.getAttribute('class') == 'Barrage-icon Barrage-icon--sys') {
+        if (barrageDiv.getAttribute('class') === 'Barrage-icon Barrage-icon--sys') {
             type = 'system';
             nickname = '系统'
             content = barrageElement.innerHTML.replace(/<[^>]+>/g, '');
@@ -37,16 +37,29 @@ setInterval(function() {
             nickname = usernameElement.getAttribute('title');
             
             let contentElement = barrageDiv.getElementsByClassName('Barrage-text');
-            if (contentElement.length == 0) {
+            if (contentElement.length === 0) {
                 type = 'message';
                 contentElement = barrageDiv.getElementsByClassName('Barrage-content')[0];
                 content = contentElement.firstChild.nodeValue;
                 content = content.trimStart().trimEnd();
+				
+				let emoticons = contentElement.innerHTML.match(/rel="([^"]*)"/g);
+				let emoticon = '';
+				if (emoticons !== null) {
+				    for (let emoticonsIndex = 0; emoticonsIndex < emoticons.length; emoticonsIndex++) {
+				        emoticon += `[${emoticons[emoticonsIndex].replace('rel="', '').replace('"', '')}]`;
+				    }
+				}
+				content += emoticon;
             } else {
-                type = 'welcome';
-                contentElement = contentElement[0];
-                content = contentElement.firstChild.nodeValue;
-                content = content.trimStart().trimEnd();
+				contentElement = contentElement[0];
+				content = contentElement.firstChild.nodeValue;
+				content = content.trimStart().trimEnd();
+				if (content.indexOf('赠送给主播') === -1) {
+					type = 'welcome';
+				} else {
+					continue;
+				}
             }
         }
         
@@ -57,7 +70,7 @@ setInterval(function() {
             'content': content
         };
         
-        if (barrageId.indexOf(id) == -1) {
+        if (barrageId.indexOf(id) === -1) {
             barrages.push(barrage);
             barrageId.push(id);
             if (barrageId.length > 300) {
@@ -67,7 +80,7 @@ setInterval(function() {
     }
     
     barragesJson = JSON.stringify(barrages);
-    if (barragesJson != '{}') {
+    if (barragesJson !== '{}') {
         console.log(barrages);
         ws.send(barragesJson);
     }

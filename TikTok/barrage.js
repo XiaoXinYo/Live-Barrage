@@ -29,13 +29,12 @@ setInterval(function() {
         originalText = original.replace(/">(\S*)<\/span><\/div><\/span>/g, '');
         originalText = originalText.replace(/<[^>]+>/g, '');
         originalText = originalText.trimStart().trimEnd();
-        if (originalText.indexOf('欢迎来到直播间') == -1) {
-            if (barrageElement.getAttribute('style') == 'background-color: transparent;') {
+        if (originalText.indexOf('欢迎来到直播间') === -1) {
+            if (barrageElement.getAttribute('style') === 'background-color: transparent;') {
                 type = 'welcome';
                 originalText = originalText.split(' ');
             } else {
-				console.log(originalText);
-                if (originalText.indexOf('&nbsp;×&nbsp;') != -1) {
+                if (originalText.indexOf('&nbsp;×&nbsp;') !== -1) {
                     continue;
                 }
                 type = 'message';
@@ -51,22 +50,22 @@ setInterval(function() {
             content = originalText;
         }
         
-        let emoticons = original.match(/alt="([^"]*)"/g);
-        let emoticon = '';
-        if (emoticons != null) {
-            for (let emoticonsIndex = 0; emoticonsIndex < emoticons.length; emoticonsIndex++) {
-                emoticon += emoticons[emoticonsIndex].replace('alt="', '').replace('"', '');
-            }
-        }
-        content += emoticon;
-        
+		let emoticons = original.match(/alt="([^"]*)"/g);
+		let emoticon = '';
+		if (emoticons !== null) {
+		    for (let emoticonsIndex = 0; emoticonsIndex < emoticons.length; emoticonsIndex++) {
+		        emoticon += emoticons[emoticonsIndex].replace('alt="', '').replace('"', '');
+		    }
+		}
+		content += emoticon;
+		
         let barrage = {
             'type': type,
             'nickname': nickname,
             'content': content,
         };
         
-        if (barrageId.indexOf(id) == -1) {
+        if (barrageId.indexOf(id) === -1) {
             barrages.push(barrage);
             barrageId.push(id);
             if (barrageId.length > 300) {
@@ -76,7 +75,7 @@ setInterval(function() {
     }
     
     barragesJson = JSON.stringify(barrages);
-    if (barragesJson != '{}') {
+    if (barragesJson !== '{}') {
         console.log(barrages);
         ws.send(barragesJson);
     }
