@@ -30,8 +30,10 @@ class KwaiLiveBarrage:
         self._getLiveStreamId()
     
     def _getLiveStreamId(self):
-        headers = {}
-        headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
+        headers = {
+            'Cookie': 'clientid=3; did=web_0ab029d675a4c9df087e3c7f6873e556; client_key=65890b29; ksliveShowClipTip=true',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
+        }
         data = requests.get(self.url, headers=headers).text
         self.liveStreamId = getMiddleText(data, '"liveStreamId":"' , '","caption')
 
@@ -41,7 +43,7 @@ class KwaiLiveBarrage:
             data = json.loads(data)
             data = json.loads(data)
         except Exception:
-            return '直播流ID错误'
+            return False
         data = data.get('liveStreamFeeds')
         
         barrages = []
@@ -63,10 +65,10 @@ async def handle(websocket):
     while True:
         barrages = barrage.get()
         if barrages:
-            if barrages == '直播流ID错误':
-                await websocket.send('直播流ID错误')
-                break
             await websocket.send(json.dumps(barrages, ensure_ascii=False))
+        elif barrages == False:
+            await websocket.send('直播网址错误')
+            break
         await asyncio.sleep(TIME / 1000)
 
 async def run(websocket):

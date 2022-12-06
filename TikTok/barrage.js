@@ -11,7 +11,7 @@ ws.onclose = function() {
     console.log('断开连接');
 };
 
-let barrageId = [];
+let barrageIds = [];
 setInterval(function() {
     let webcastChatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
     let barrageElements = webcastChatroom.getElementsByClassName('webcast-chatroom___item');
@@ -65,18 +65,16 @@ setInterval(function() {
             'content': content,
         };
         
-        if (barrageId.indexOf(id) === -1) {
+        if (barrageIds.indexOf(id) === -1) {
             barrages.push(barrage);
-            barrageId.push(id);
-            if (barrageId.length > 300) {
-                barrageId.splice(0, 100);
+            barrageIds.push(id);
+            if (barrageIds.length > 300) {
+                barrageIds.splice(0, 100);
             }
         }
     }
     
-    barragesJson = JSON.stringify(barrages);
-    if (barragesJson !== '{}') {
-        console.log(barrages);
-        ws.send(barragesJson);
+    if (barrages) {
+        ws.send(JSON.stringify(barrages));
     }
 }, TIME);
