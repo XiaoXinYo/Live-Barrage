@@ -16,10 +16,10 @@ def getMiddleText(text, textLeft='', textRight=''):
             return text.split(textRight)[1]
         elif not textRight:
             return text.split(textLeft)[1]
-        data = text.split(textLeft)[1].split(textRight)[0]
+        text_ = text.split(textLeft)[1].split(textRight)[0]
     except Exception:
-        data = ''
-    return data
+        text_ = ''
+    return text_
 
 class KwaiLiveBarrage:
     def __init__(self, url):

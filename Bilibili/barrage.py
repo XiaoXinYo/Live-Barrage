@@ -16,10 +16,10 @@ def getMiddleText(text, textLeft='', textRight=''):
             return text.split(textRight)[1]
         elif not textRight:
             return text.split(textLeft)[1]
-        data = text.split(textLeft)[1].split(textRight)[0]
+        text_ = text.split(textLeft)[1].split(textRight)[0]
     except Exception:
-        data = ''
-    return data
+        text_ = ''
+    return text_
 
 class BilibiliLiveBarrage:
     def __init__(self, signature):
@@ -50,10 +50,9 @@ class BilibiliLiveBarrage:
         barrages = []
         if data:
             for dataItem in data:
+                content = dataItem.get('text')
                 if dataItem.get('emoticon').get('id') == 0:
-                    content = dataItem.get('text')
-                else:
-                    content = f'[{dataItem.get("text")}]'
+                    content = f'[{content}]'
                 
                 checkInfo = dataItem.get('check_info')
                 
@@ -63,10 +62,11 @@ class BilibiliLiveBarrage:
                     'content': content,
                     'timestamp': checkInfo.get('ts')
                 }
-
-                if checkInfo.get('ct') not in self.barrageIds:
+                
+                id_ = checkInfo.get('ct')
+                if id_ not in self.barrageIds:
                     barrages.append(barrage)
-                    self.barrageIds.append(checkInfo.get('ct'))
+                    self.barrageIds.append(id_)
                     if len(self.barrageIds) > 300:
                         del self.barrageIds[0: 100]
         return barrages
