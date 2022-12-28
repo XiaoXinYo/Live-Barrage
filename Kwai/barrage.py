@@ -44,17 +44,16 @@ class KwaiLiveBarrage:
             data = json.loads(data)
         except Exception:
             return False
-        data = data.get('liveStreamFeeds')
+        liveStreamFeeds = data.get('liveStreamFeeds')
         
         barrages = []
-        if data:
-            for dataItem in data:
-                author = dataItem.get('author')
+        if liveStreamFeeds:
+            for liveStreamFeed in liveStreamFeeds:
                 barrage = {
-                    'userId': author.get('userId'),
-                    'nickname': author.get('userName'),
-                    'content': dataItem.get('content'),
-                    'timestmap': dataItem.get('time')
+                    'userId': liveStreamFeed.get('author').get('userId'),
+                    'nickname': liveStreamFeed.get('author').get('userName'),
+                    'content': liveStreamFeed.get('content'),
+                    'timestmap': liveStreamFeed.get('time')
                 }
                 barrages.append(barrage)
         return barrages

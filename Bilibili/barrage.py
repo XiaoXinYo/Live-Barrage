@@ -49,16 +49,16 @@ class BilibiliLiveBarrage:
         
         barrages = []
         if data:
-            for dataItem in data:
-                content = dataItem.get('text')
-                if dataItem.get('emoticon').get('id') == 0:
+            for datum in data:
+                content = datum.get('text')
+                if datum.get('emoticon').get('id') == 0:
                     content = f'[{content}]'
                 
-                checkInfo = dataItem.get('check_info')
+                checkInfo = datum.get('check_info')
                 
                 barrage = {
-                    'userId': dataItem.get('uid'),
-                    'nickname': dataItem.get('nickname'),
+                    'userId': datum.get('uid'),
+                    'nickname': datum.get('nickname'),
                     'content': content,
                     'timestamp': checkInfo.get('ts')
                 }
