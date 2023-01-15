@@ -1,6 +1,6 @@
 ## 哔哩哔哩
 ### 介绍
-通过请求官方API获取直播弹幕,使用WebSokcet向其他端传送弹幕.
+通过请求官方API获取直播弹幕,使用WebSocket向其他端传送弹幕.
 ### 需求
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests.
@@ -19,7 +19,7 @@ timestmap|时间戳
 ### 示例(Bilibili/example/)
 ## 抖音
 ### 介绍
-通过浏览器运行JavaScript脚本获取直播弹幕,使用WebSokcet向其他端传送弹幕.
+通过浏览器运行JavaScript脚本获取直播弹幕,使用WebSocket向其他端传送弹幕.
 ### 配置
 1. WebSocket连接地址在第1行.
 2. 监听间隔(毫秒)在第2行.
@@ -34,7 +34,7 @@ content|内容
 ### 示例(Tiktok/example/)
 ## 斗鱼
 ### 介绍
-通过浏览器运行JavaScript脚本获取直播弹幕,使用WebSokcet向其他端传送弹幕.
+通过浏览器运行JavaScript脚本获取直播弹幕,使用WebSocket向其他端传送弹幕.
 ### 配置
 1. WebSocket连接地址在第1行.
 2. 监听间隔(毫秒)在第2行.
@@ -48,7 +48,7 @@ nickname|昵称
 content|内容
 ### 示例(参考抖音示例)
 ## 快手
-通过请求官方API获取直播弹幕,使用WebSokcet向其他端传送弹幕.
+通过请求官方API获取直播弹幕,使用WebSocket向其他端传送弹幕.
 ### 需求
 1. 环境: Python3.
 2. 包: asyncio,websockets,requests,json.
