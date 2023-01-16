@@ -39,6 +39,7 @@ setInterval(function() {
             let contentElement = barrageDiv.getElementsByClassName('Barrage-text');
             if (contentElement.length === 0) {
                 type = 'message';
+				
                 contentElement = barrageDiv.getElementsByClassName('Barrage-content')[0];
                 content = contentElement.firstChild.nodeValue;
                 content = content.trimStart().trimEnd();
@@ -52,9 +53,10 @@ setInterval(function() {
 				}
 				content += emoticon;
             } else {
-				contentElement = contentElement[0];
-				content = contentElement.firstChild.nodeValue;
+				content = contentElement.innerHTML;
+				content = content.replace(/<[^>]+>/g, '');
 				content = content.trimStart().trimEnd();
+				
 				if (content.indexOf('赠送给主播') === -1) {
 					type = 'welcome';
 				} else {

@@ -24,7 +24,7 @@ def getMiddleText(text, textLeft='', textRight=''):
 class BilibiliLiveBarrage:
     def __init__(self, signature):
         '''
-        signature:直播网址或房间号
+        signature:直播网址/房间号
         '''
         self.signature = signature
         self._getRoomId()

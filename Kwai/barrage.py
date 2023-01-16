@@ -31,11 +31,10 @@ class KwaiLiveBarrage:
     
     def _getLiveStreamId(self):
         headers = {
-            'Cookie': 'clientid=3; did=web_0ab029d675a4c9df087e3c7f6873e556; client_key=65890b29; ksliveShowClipTip=true',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
         }
         data = requests.get(self.url, headers=headers).text
-        self.liveStreamId = getMiddleText(data, '"liveStreamId":"' , '","caption')
+        self.liveStreamId = getMiddleText(data, '"liveStream":{"id":"' , '","poster"')
 
     def get(self):
         data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
