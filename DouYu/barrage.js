@@ -1,13 +1,13 @@
 const HOST = 'ws://127.0.0.1:5000';
 const TIME = 1000;
 
-const ws = new WebSocket(HOST);
+const WS = new WebSocket(HOST);
 
-ws.onopen = function() {
+WS.onopen = function() {
     console.log('连接成功');
 };
 
-ws.onclose = function() {
+WS.onclose = function() {
     console.log('断开连接');
 };
 
@@ -19,7 +19,6 @@ setInterval(function() {
         let barrageElement = barrageElements[barrageElementsIndex];
         
         let id = barrageElement.getAttribute('id');
-        
         let barrageDiv = barrageElement.firstElementChild;
         
         let type = '';
@@ -82,6 +81,6 @@ setInterval(function() {
     }
     
     if (barrages) {
-        ws.send(JSON.stringify(barrages));
+        WS.send(JSON.stringify(barrages));
     }
 }, TIME);

@@ -54,16 +54,14 @@ class BilibiliLiveBarrage:
                 if datum.get('emoticon').get('id') == 0:
                     content = f'[{content}]'
                 
-                checkInfo = datum.get('check_info')
-                
                 barrage = {
                     'userId': datum.get('uid'),
                     'nickname': datum.get('nickname'),
                     'content': content,
-                    'timestamp': checkInfo.get('ts')
+                    'timestamp': datum.get('check_info').get('ts')
                 }
                 
-                id_ = checkInfo.get('ct')
+                id_ = datum.get('check_info').get('ct')
                 if id_ not in self.barrageIds:
                     barrages.append(barrage)
                     self.barrageIds.append(id_)
