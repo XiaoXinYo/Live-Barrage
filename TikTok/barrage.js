@@ -1,3 +1,5 @@
+/* Author: XiaoXinYo */
+
 const HOST = 'ws://127.0.0.1:5000';
 const TIME = 1000;
 
@@ -13,8 +15,8 @@ WS.onclose = function() {
 
 let barrageIds = [];
 setInterval(function() {
-    let webcastChatroom = document.getElementsByClassName('webcast-chatroom___items')[0];
-    let barrageElements = webcastChatroom.getElementsByClassName('webcast-chatroom___item');
+    let webcastChatroomElement = document.getElementsByClassName('webcast-chatroom___items')[0];
+    let barrageElements = webcastChatroomElement.getElementsByClassName('webcast-chatroom___item');
     let barrages = [];
     for (let barrageElementsIndex = 0; barrageElementsIndex < barrageElements.length; barrageElementsIndex++) {
         let barrageElement = barrageElements[barrageElementsIndex];

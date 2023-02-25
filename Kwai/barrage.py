@@ -22,19 +22,11 @@ def getMiddleText(text, textLeft='', textRight=''):
     return text_
 
 class KwaiLiveBarrage:
-    def __init__(self, url):
+    def __init__(self, liveStreamId):
         '''
-        url:直播网址
+        liveStreamId:直播流ID
         '''
-        self.url = url
-        self._getLiveStreamId()
-    
-    def _getLiveStreamId(self):
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
-        }
-        data = requests.get(self.url, headers=headers).text
-        self.liveStreamId = getMiddleText(data, '"liveStream":{"id":"' , '","poster"')
+        self.liveStreamId = liveStreamId
 
     def get(self):
         data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
@@ -65,7 +57,7 @@ async def handle(websocket):
         if barrages:
             await websocket.send(json.dumps(barrages, ensure_ascii=False))
         elif barrages == False:
-            await websocket.send('直播网址错误')
+            await websocket.send('直播流ID错误')
             break
         await asyncio.sleep(TIME / 1000)
 

@@ -1,3 +1,5 @@
+/* Author: XiaoXinYo */
+
 const HOST = 'ws://127.0.0.1:5000';
 const TIME = 1000;
 
@@ -29,16 +31,28 @@ setInterval(function() {
             type = 'system';
             nickname = '系统'
             content = barrageElement.innerHTML.replace(/<[^>]+>/g, '');
-            content = content.trimStart().trimEnd();
+            content = content.replace(/\s+/g, '');
         } else {
-            let usernameElement = barrageDiv.getElementsByClassName('Barrage-nickName')[0];
-            userId = usernameElement.getAttribute('data-uid');
-            nickname = usernameElement.getAttribute('title');
+            let userElement = barrageDiv.getElementsByClassName('Barrage-nickName')[0];
+            nickname = userElement.getAttribute('title');
             
             let contentElement = barrageDiv.getElementsByClassName('Barrage-text');
-            if (contentElement.length === 0) {
-                type = 'message';
+            if (contentElement.length === 1) {
+				content = contentElement[0].innerHTML;
+				content = content.replace(/<[^>]+>/g, '');
+				content = content.trimStart().trimEnd();
 				
+				if (content.indexOf('赠送给主播') === -1) {
+					type = 'welcome';
+                    content = `${nickname}${content}`;
+                    nickname = '系统';
+				} else {
+					continue;
+				}
+            } else {
+                type = 'message';
+                userId = userElement.getAttribute('data-uid');
+                
                 contentElement = barrageDiv.getElementsByClassName('Barrage-content')[0];
                 content = contentElement.firstChild.nodeValue;
                 content = content.trimStart().trimEnd();
@@ -51,16 +65,6 @@ setInterval(function() {
 				    }
 				}
 				content += emoticon;
-            } else {
-				content = contentElement.innerHTML;
-				content = content.replace(/<[^>]+>/g, '');
-				content = content.trimStart().trimEnd();
-				
-				if (content.indexOf('赠送给主播') === -1) {
-					type = 'welcome';
-				} else {
-					continue;
-				}
             }
         }
         

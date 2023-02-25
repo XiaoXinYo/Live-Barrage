@@ -36,7 +36,7 @@ class BilibiliLiveBarrage:
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
             }
             liveData = requests.get(self.signature, headers=headers).text
-            self.roomId = getMiddleText(liveData, 'defaultRoomId":"' , '","roomsNum"')
+            self.roomId = getMiddleText(liveData, '"roomid":' , ',"rank_desc')
         else:
             self.roomId = self.signature
     
@@ -52,7 +52,7 @@ class BilibiliLiveBarrage:
             for datum in data:
                 content = datum.get('text')
                 if datum.get('emoticon').get('id') == 0:
-                    content = f'[{content}]'
+                    content = f'{content}'
                 
                 barrage = {
                     'userId': datum.get('uid'),
