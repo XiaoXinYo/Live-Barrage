@@ -61,15 +61,16 @@ async def handle(websocket):
             break
         await asyncio.sleep(TIME / 1000)
 
-async def run(websocket):
+async def app(ws):
     while True:
         try:
-            print('连接成功')
-            await handle(websocket)
+            ipAddress = ws.remote_address[0]
+            print(f'{ipAddress}:连接成功')
+            await handle(ws)
         except websockets.ConnectionClosed:
-            print('断开连接')
+            print(f'{ipAddress}:断开连接')
             break
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(websockets.serve(run, HOST, PORT))
+    asyncio.get_event_loop().run_until_complete(websockets.serve(app, HOST, PORT))
     asyncio.get_event_loop().run_forever()
