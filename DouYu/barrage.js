@@ -20,7 +20,7 @@ setInterval(function() {
     for (let barrageElementsIndex = 0; barrageElementsIndex < barrageElements.length; barrageElementsIndex++) {
         let barrageElement = barrageElements[barrageElementsIndex];
         
-        let id = barrageElement.getAttribute('id');
+        let barrageId = barrageElement.getAttribute('id');
         let barrageDiv = barrageElement.firstElementChild;
         
         let type = '';
@@ -44,8 +44,6 @@ setInterval(function() {
 				
 				if (content.indexOf('赠送给主播') === -1) {
 					type = 'welcome';
-                    content = `${nickname}${content}`;
-                    nickname = '系统';
 				} else {
 					continue;
 				}
@@ -74,10 +72,9 @@ setInterval(function() {
             'nickname': nickname,
             'content': content
         };
-        
-        if (barrageIds.indexOf(id) === -1) {
+        if (barrageIds.indexOf(barrageId) === -1) {
             barrages.push(barrage);
-            barrageIds.push(id);
+            barrageIds.push(barrageId);
             if (barrageIds.length > 300) {
                 barrageIds.splice(0, 100);
             }

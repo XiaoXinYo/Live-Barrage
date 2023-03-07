@@ -21,7 +21,7 @@ setInterval(function() {
     for (let barrageElementsIndex = 0; barrageElementsIndex < barrageElements.length; barrageElementsIndex++) {
         let barrageElement = barrageElements[barrageElementsIndex];
 
-        let id = barrageElement.getAttribute('data-id');
+        let barrageId = barrageElement.getAttribute('data-id');
         let original = barrageElement.innerHTML;
         
         let type = '';
@@ -65,10 +65,9 @@ setInterval(function() {
             'nickname': nickname,
             'content': content,
         };
-        
-        if (barrageIds.indexOf(id) === -1) {
+        if (barrageIds.indexOf(barrageId) === -1) {
             barrages.push(barrage);
-            barrageIds.push(id);
+            barrageIds.push(barrageId);
             if (barrageIds.length > 300) {
                 barrageIds.splice(0, 100);
             }

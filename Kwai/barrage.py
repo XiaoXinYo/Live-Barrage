@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Author: XiaoXinYo
 
+from typing import Union
 import asyncio
 import websockets
 import requests
@@ -10,7 +11,7 @@ HOST = '0.0.0.0'
 PORT = 5000
 TIME = 3000
 
-def getMiddleText(text, textLeft='', textRight=''):
+def getMiddleText(text: str, textLeft: str='', textRight: str='') -> str:
     try:
         if not textLeft:
             return text.split(textRight)[1]
@@ -22,13 +23,13 @@ def getMiddleText(text, textLeft='', textRight=''):
     return text_
 
 class KwaiLiveBarrage:
-    def __init__(self, liveStreamId):
+    def __init__(self, liveStreamId: str) -> None:
         '''
         liveStreamId:直播流ID
         '''
         self.liveStreamId = liveStreamId
 
-    def get(self):
+    def get(self) -> Union[bool, list]:
         data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
         try:
             data = json.loads(data)
@@ -49,19 +50,19 @@ class KwaiLiveBarrage:
                 barrages.append(barrage)
         return barrages
 
-async def handle(websocket):
-    url = await websocket.recv()
+async def handle(ws: websockets) -> None:
+    url = await ws.recv()
     barrage = KwaiLiveBarrage(url)
     while True:
         barrages = barrage.get()
         if barrages:
-            await websocket.send(json.dumps(barrages, ensure_ascii=False))
+            await ws.send(json.dumps(barrages, ensure_ascii=False))
         elif barrages == False:
-            await websocket.send('直播流ID错误')
+            await ws.send('直播流ID错误')
             break
         await asyncio.sleep(TIME / 1000)
 
-async def app(ws):
+async def app(ws: websockets) -> None:
     while True:
         try:
             ipAddress = ws.remote_address[0]
