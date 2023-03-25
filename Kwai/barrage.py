@@ -36,8 +36,8 @@ class KwaiLiveBarrage:
             data = json.loads(data)
         except Exception:
             return False
-        liveStreamFeeds = data.get('liveStreamFeeds')
         
+        liveStreamFeeds = data.get('liveStreamFeeds')
         barrages = []
         if liveStreamFeeds:
             for liveStreamFeed in liveStreamFeeds:
