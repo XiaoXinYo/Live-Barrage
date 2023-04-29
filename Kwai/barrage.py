@@ -28,24 +28,25 @@ class KwaiLiveBarrage:
         liveStreamId:直播流ID
         '''
         self.liveStreamId = liveStreamId
+        self.session = requests.Session()
 
     def get(self) -> Union[bool, list]:
-        data = requests.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
+        data = self.session.get(f'https://livev.m.chenzhongtech.com/wap/live/feed?liveStreamId={self.liveStreamId}').text
         try:
             data = json.loads(data)
             data = json.loads(data)
         except Exception:
             return False
         
-        liveStreamFeeds = data.get('liveStreamFeeds')
+        liveStreamFeeds = data['liveStreamFeeds']
         barrages = []
         if liveStreamFeeds:
             for liveStreamFeed in liveStreamFeeds:
                 barrage = {
-                    'userId': liveStreamFeed.get('author').get('userId'),
-                    'nickname': liveStreamFeed.get('author').get('userName'),
-                    'content': liveStreamFeed.get('content'),
-                    'timestmap': liveStreamFeed.get('time')
+                    'userId': liveStreamFeed['author']['userId'],
+                    'nickname': liveStreamFeed['author']['userName'],
+                    'content': liveStreamFeed['content'],
+                    'timestmap': liveStreamFeed['time']
                 }
                 barrages.append(barrage)
         return barrages
