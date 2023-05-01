@@ -64,7 +64,7 @@ setInterval(function() {
             }
         }
     }
-
+    
     if (barrages) {
         WS.send(JSON.stringify(barrages));
     }

@@ -53,7 +53,7 @@ content|内容
 1. WebSocket地址和端口分别在第9行和第10行.
 2. 监听间隔(毫秒)在第11行.
 ### 使用
-客户端连接WebSocket后发送直播流ID(查看页面源代码,搜索liveStreamId).
+客户端连接WebSocket后发送直播流ID(查看页面源代码,搜索liveStream后面ID的值即直播流ID).
 ### 响应参数
 名称|说明
 ---|---

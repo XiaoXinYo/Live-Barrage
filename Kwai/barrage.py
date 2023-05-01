@@ -52,8 +52,8 @@ class KwaiLiveBarrage:
         return barrages
 
 async def handle(ws: websockets) -> None:
-    url = await ws.recv()
-    barrage = KwaiLiveBarrage(url)
+    liveStreamId = await ws.recv()
+    barrage = KwaiLiveBarrage(liveStreamId)
     while True:
         barrages = barrage.get()
         if barrages:
