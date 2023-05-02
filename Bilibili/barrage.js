@@ -13,6 +13,24 @@ WS.onclose = function() {
     console.log('断开连接');
 };
 
+const welcomeObserver = new MutationObserver((mutationsList) => {
+    brushPrompt = document.getElementById('brush-prompt');
+    let spans = brushPrompt.getElementsByTagName('span');
+    try {
+        let nickname = spans[0].innerHTML;
+        let content = spans[1].innerHTML;
+        let barrage = {
+            'type': 'welcome',
+            'nickname': nickname,
+            'content': content,
+        };
+        WS.send(JSON.stringify([barrage]));
+    } catch (error) {
+    }
+    
+});
+welcomeObserver.observe(document.getElementById('brush-prompt'), {childList: true});
+
 let barrageIds = [];
 setInterval(function() {
     let barrageElements = document.getElementById('chat-items').children;
