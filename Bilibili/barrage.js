@@ -17,8 +17,18 @@ const welcomeObserver = new MutationObserver((mutationsList) => {
     brushPrompt = document.getElementById('brush-prompt');
     let spans = brushPrompt.getElementsByTagName('span');
     try {
-        let nickname = spans[0].innerHTML;
-        let content = spans[1].innerHTML;
+        let nickname = '';
+        let content = '';
+        if (spans[0].getAttribute('class').indexOf('fans') === -1) {
+            nickname = spans[0].innerHTML;
+            content = spans[1].innerHTML;
+        } else {
+            nickname = spans[1].innerHTML;
+            content = spans[2].innerHTML;
+        }
+        if (content.indexOf('进入') === -1) {
+            return;
+        }
         let barrage = {
             'type': 'welcome',
             'nickname': nickname,
@@ -60,12 +70,14 @@ setInterval(function() {
             let contentElement = barrageElement.lastElementChild;
             content = contentElement.innerHTML;
             content = content.trimStart().trimEnd();
-        } else {
+        } else if (className.indexOf('chat-item danmaku-item') !== -1) {
             barrageId = barrageElement.getAttribute('data-ct');
             type = 'message';
             userId = barrageElement.getAttribute('data-uid');
             nickname = barrageElement.getAttribute('data-uname');
             content = barrageElement.getAttribute('data-danmaku');
+        } else {
+            continue;
         }
 
         let barrage = {
